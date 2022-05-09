@@ -1,4 +1,6 @@
 
+
+
 def log(text):
     def test(text):
         print("[log]-",text)
