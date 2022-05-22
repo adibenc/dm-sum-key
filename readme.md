@@ -18,3 +18,9 @@ $("article")[0].innerText
 ```
 sumy text-rank --url=https://tirto.id/pengertian-tanaman-pangan-dan-contohnya-padi-jagung-hingga-ubi-glEd
 ```
+
+2. jsonl to jsonobj
+```python
+import pandas as pd
+jsonObj = pd.read_json(path_or_buf=file_path, lines=True)
+```
