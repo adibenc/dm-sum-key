@@ -8,6 +8,11 @@ nlp = spacy.load('en_core_web_sm')
 # https://gist.github.com/BrambleXu/3d47bbdbd1ee4e6fc695b0ddb88cbf99#file-textrank4keyword-py
 class TextRank4Keyword():
     """Extract keywords from text"""
+    last = {
+        "vocab": None,
+        "tokenPairs": None,
+        "g": None,
+    }
     
     def __init__(self):
         self.d = 0.85 # damping coefficient, usually is .85
@@ -95,6 +100,14 @@ class TextRank4Keyword():
                 break
         return kws
         
+    def setLast(self, vocab, tokenPairs, g):
+        self.last = {
+            "vocab": vocab,
+            "tokenPairs": tokenPairs,
+            "g": g,
+        }
+
+        return self
         
     def analyze(self, text, 
                 candidate_pos=['NOUN', 'PROPN'], 
@@ -119,6 +132,8 @@ class TextRank4Keyword():
         # Get normalized matrix
         g = self.get_matrix(vocab, token_pairs)
         
+        self.setLast(vocab, token_pairs, g)
+
         # Initionlization for weight(pagerank value)
         pr = np.array([1] * len(vocab))
         
